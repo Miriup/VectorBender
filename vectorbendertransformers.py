@@ -172,6 +172,8 @@ class AffineTransformer(Transformer):
         self.e = -(x21*y32+x11*(y22-y32)-x31*y22+(x31-x21)*y12)/(x11*(y31-y21)-x21*y31+x31*y21+(x21-x31)*y11)
         self.f = (x11*(y22*y31-y21*y32)+y11*(x21*y32-x31*y22)+y12*(x31*y21-x21*y31))/(x11*(y31-y21)-x21*y31+x31*y21+(x21-x31)*y11)
 
+        QgsMessageLog.logMessage( "VectorBender AffineTransform matrix:\n"+str(self.a)+" "+str(self.b)+" "+str(self.c)+"\n"+str(self.d)+" "+str(self.e)+" "+str(self.f), level=QgsMessageLog.INFO )
+
 
     def map(self, p):
 
@@ -199,6 +201,11 @@ class LinearTransformer(Transformer):
         self.dy1 = self.pointsA[0].y() 
         self.dx2 = self.pointsB[0].x()
         self.dy2 = self.pointsB[0].y()
+
+        QgsMessageLog.logMessage( "VectorBender LinearTransformer Translation1 (-): (" +str(self.dx1)+ " " +str(self.dy1)+ ")", level=QgsMessageLog.INFO )
+        QgsMessageLog.logMessage( "VectorBender LinearTransformer Scale: " + str(self.ds), level=QgsMessageLog.INFO )
+        QgsMessageLog.logMessage( "VectorBender LinearTransformer Rotation: " + str(self.da), level=QgsMessageLog.INFO )
+        QgsMessageLog.logMessage( "VectorBender LinearTransformer Translation2 (+): (" +str(self.dx2)+ " " +str(self.dy2)+ ")", level=QgsMessageLog.INFO )
 
 
     def map(self, p):
